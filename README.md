@@ -1,9 +1,26 @@
 # TensorFlow on Wisteria
 
+## Login
+
 ```
 ssh -l ${USER_ID} wisteria.cc.u-tokyo.ac.jp
 ```
 
+## Setup Python
+
 ```
-module load gcc/7.5.0 python/3.8/3.8.2 cuda/10.1/10.1.243 cudnn/7.6/7.6.5 openmpi/2.1.6
+pjsub --interact -g gt00 -L rscgrp=tut2-interactive-a,node=1
+```
+
+```
+module purge
+module load cuda/11.2
+module load cudnn/8.1.0
+```
+
+```
+python -m venv tf
+source tf/bin/activate
+pip install -U pip
+pip install tensorflow
 ```
