@@ -32,7 +32,9 @@ def create_model():
         tf.keras.layers.MaxPool2D(pool_size=(2, 2)),
         tf.keras.layers.Dropout(rate=0.75),
         tf.keras.layers.Flatten(),
-        tf.keras.layers.Dense(128, activation="relu"),
+        tf.keras.layers.Dense(128, activation=None),
+        tf.keras.layers.BatchNormalization(),
+        tf.keras.layers.Activation("relu"),
         tf.keras.layers.Dropout(rate=0.5),
         tf.keras.layers.Dense(10, activation="softmax")
     ])
