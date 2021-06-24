@@ -1,2 +1,10 @@
-tf
+# Python.
+.venv
+venv
+
+# Wisteria.
 *_nodeinfo
+*.log
+
+# TensorFlow.
+.tfds

@@ -4,13 +4,17 @@
 #PJM -L rscgrp=tutorial-share
 #PJM -L gpu=4
 #PJM -L elapse=1:00:00
+#PJM -o logs/stdout.log
+#PJM -e logs/stderr.log
+
 
 module purge
 module load cuda/11.2
 module load cudnn/8.1.0
+module load nccl/2.9.6
 module list
 
-source tf/bin/activate
+source ../.venv/bin/activate
 
 python main.py
 
