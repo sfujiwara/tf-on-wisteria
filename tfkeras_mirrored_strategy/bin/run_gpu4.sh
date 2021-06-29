@@ -2,10 +2,10 @@
 
 #PJM -g gt00
 #PJM -L rscgrp=tutorial-share
-#PJM -L gpu=1
+#PJM -L gpu=4
 #PJM -L elapse=1:00:00
-#PJM -o logs/stdout.log
-#PJM -e logs/stderr.log
+#PJM -o logs/stdout_gpu4.log
+#PJM -e logs/stderr_gpu4.log
 
 
 module purge

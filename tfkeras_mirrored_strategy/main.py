@@ -59,7 +59,7 @@ def main():
 
     model.fit(
         ds_train,
-        epochs=5,
+        epochs=100,
         verbose=2,
     )
 
