@@ -6,7 +6,7 @@ import tensorflow_datasets as tfds
 
 def train_dataset(batch_size: int):
 
-    ds = tfds.load("mnist", split=tfds.Split.TRAIN, data_dir=".tfds")
+    ds = tfds.load("cifar10", split=tfds.Split.TRAIN, data_dir=".tfds")
     ds = ds.map(lambda x: (tf.cast(x["image"], tf.float32)/255., x["label"]))
     ds = ds.repeat().shuffle(batch_size*2).batch(batch_size)
     ds = ds.prefetch(tf.data.experimental.AUTOTUNE)
@@ -16,7 +16,7 @@ def train_dataset(batch_size: int):
 
 def eval_dataset():
 
-    ds = tfds.load("mnist", split=tfds.Split.TEST, data_dir=".tfds")
+    ds = tfds.load("cifar10", split=tfds.Split.TEST, data_dir=".tfds")
     ds = ds.map(lambda x: (tf.cast(x["image"], tf.float32)/255., x["label"]))
     ds = ds.repeat().batch(100)
     ds = ds.prefetch(tf.data.experimental.AUTOTUNE)
@@ -27,7 +27,7 @@ def eval_dataset():
 def create_model():
 
     model = tf.keras.Sequential([
-        tf.keras.layers.Conv2D(32, (3, 3), activation="relu", input_shape=(28, 28, 1)),
+        tf.keras.layers.Conv2D(32, (3, 3), activation="relu", input_shape=(32, 32, 3)),
         tf.keras.layers.Conv2D(64, (3, 3), activation="relu"),
         tf.keras.layers.MaxPool2D(pool_size=(2, 2)),
         tf.keras.layers.Dropout(rate=0.75),
