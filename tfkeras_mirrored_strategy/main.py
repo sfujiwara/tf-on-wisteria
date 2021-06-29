@@ -25,9 +25,12 @@ def gen_train_dataset():
 
 def create_model():
 
-    model_url = "https://tfhub.dev/tensorflow/resnet_50/classification/1"
+    num_classes = 5
+
+    model_url = "https://tfhub.dev/google/imagenet/resnet_v2_152/feature_vector/5"
     model = tf.keras.Sequential([
-        hub.KerasLayer(model_url)
+        hub.KerasLayer(model_url),
+        tf.keras.layers.Dense(num_classes, activation="softmax"),
     ])
     model.build([None, IMAGE_SIZE, IMAGE_SIZE, 3])
 
@@ -45,26 +48,19 @@ def main():
     with dist_strategy.scope():
         model = create_model()
         model.compile(
-            optimizer=tf.keras.optimizers.SGD(lr=0.01, nesterov=True),
+            optimizer=tf.keras.optimizers.SGD(learning_rate=0.01, nesterov=True),
             loss="sparse_categorical_crossentropy",
             metrics=["accuracy"]
         )
-
-    batch_size = 256
 
     ds_train = gen_train_dataset()
 
     start = time.time()
 
-    # import IPython;IPython.embed()
     model.fit(
         ds_train,
         epochs=5,
-        # steps_per_epoch=int(60000/batch_size),
-        # validation_split=0.2,
-        # validation_steps=100,
-        # batch_size=32,
-        verbose=1,
+        verbose=2,
     )
 
     end = time.time()
